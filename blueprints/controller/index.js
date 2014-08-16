@@ -1,11 +1,13 @@
 module.exports = {
   locals: function(options) {
+    console.log('options:', options);
+    
     var type = options.entity.options.type;
 
     return {
-      baseClass: type === 'array'  ? 'ArrayController' :
-                 type === 'object' ? 'ObjectController' :
-                                     'Controller'
+      baseClass: type === 'auth'  ? 'AuthRoute' :
+                 type === 'ember' ? 'Route' :
+                                    'AuthRoute'
     };
   }
 };

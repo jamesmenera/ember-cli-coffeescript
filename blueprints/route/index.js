@@ -4,6 +4,7 @@ var path       = require('path');
 
 module.exports = {
   afterInstall: function(options) {
+    
     var entity = options.entity;
     var isIndex = /index$/.test(entity.name);
 

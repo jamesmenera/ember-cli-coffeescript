@@ -2,6 +2,29 @@ var fs         = require('fs-extra');
 var inflection = require('inflection');
 var path       = require('path');
 
+console.log('Das Blueprints?: ', Blueprint.prototype._locals);
+
+Blueprint.prototype._locals = function(options) {
+  console.log('here for Sure', options);
+
+  var packageName = options.project.name();
+  var moduleName = options.entity && options.entity.name || packageName;
+
+  var sanitizedModuleName = moduleName.replace('/', '-');
+
+  var standardLocals = {
+    dasherizedPackageName: stringUtils.dasherize(packageName),
+    classifiedPackageName: stringUtils.classify(packageName),
+    dasherizedModuleName: stringUtils.dasherize(moduleName),
+    classifiedModuleName: stringUtils.classify(sanitizedModuleName),
+    camelizedModuleName: stringUtils.camelize(sanitizedModuleName)
+  };
+
+  var customLocals = this.locals(options);
+
+  return merge({}, standardLocals, customLocals);
+};
+
 module.exports = {
   afterInstall: function(options) {
     
